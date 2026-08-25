@@ -120,6 +120,22 @@ const form = document.querySelector("[data-form]");
 const formInputs = document.querySelectorAll("[data-form-input]");
 const formBtn = document.querySelector("[data-form-btn]");
 
+// open a prefilled WhatsApp message when the form is submitted
+form.addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  const formData = new FormData(form);
+  const message = [
+    `Halo, saya ${formData.get("fullname")}.`,
+    `Email: ${formData.get("email")}`,
+    "",
+    formData.get("message")
+  ].join("\n");
+  const whatsappUrl = `https://wa.me/6281355904897?text=${encodeURIComponent(message)}`;
+
+  window.open(whatsappUrl, "_blank", "noopener,noreferrer");
+});
+
 // add event to all form input field
 for (let i = 0; i < formInputs.length; i++) {
   formInputs[i].addEventListener("input", function () {
